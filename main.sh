@@ -179,14 +179,15 @@ read randomIrrelevant
 if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
     git clone https://github.com/MatthewPierson/ipwndfuA11
     cd ipwndfuA11
+    
+elif [ $device == AppleTV5,3 ]; then
+      git clone https://github.com/joshblah555/ipwndfu_public.git
+      cd ipwndfu_public
+      
 else
     git clone https://github.com/MatthewPierson/ipwndfu_public.git
     cd ipwndfu_public
 fi
-
-if [ $device == AppleTV5,3 ]; then
-    git clone https://github.com/joshblah555/ipwndfu_public.git
-    cd ipwndfu_public
     
 echo "Starting ipwndfu"
 
