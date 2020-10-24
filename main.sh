@@ -3,7 +3,7 @@ rm -rf ipwndfu_public
 rm -rf ipwndfu
 
 clear
-echo "*** Matty's Checkm8 APNonce Setter ***"
+echo "*** Matty's Checkm8 APNonce Setter (modded by JTV) ***"
 echo "Do you want to input a generator? (y,n)"
 
 read input
@@ -76,7 +76,14 @@ else
     exit
 fi
 
-echo "$generator"
+echo "Checking device compatibility...."
+
+files/igetnonce | grep 'j42dap' &> /dev/null
+if [ $? == 0 ]; then
+   echo "Supported Device"
+   device="AppleTV5,3"
+   echo $device
+fi
 
 
 files/igetnonce | grep 'n53ap' &> /dev/null
@@ -177,6 +184,12 @@ else
     git clone https://github.com/MatthewPierson/ipwndfu_public.git
     cd ipwndfu_public
 fi
+
+if [ $device == AppleTV5,3 ]; then
+    echo "Device is an Apple TV 4, using another signature check remover"
+    git clone https://github.com/joshblah555/ipwndfu_public.git <-- link is WIP
+    cd ipwndfu_public
+    
 echo "Starting ipwndfu"
 
 string=$(../files/lsusb | grep -c "checkm8")
@@ -215,7 +228,7 @@ fi
 
 ./irecovery -f ibss."$device".img4
 
-if [ $device = iPhone6,1 ] || [ $device = iPhone6,2 ] || [ $device = iPad4,1 ] || [ $device = iPad4,2 ] || [ $device = iPad4,3 ] || [ $device = iPad4,4 ] || [ $device = iPad4,5 ] || [ $device = iPad4,6 ] || [ $device = iPad4,7 ] || [ $device = iPad4,8 ] || [ $device = iPad4,9 ];
+if [ $device = AppleTV5,3 ] || [ $device = iPhone6,1 ] || [ $device = iPhone6,2 ] || [ $device = iPad4,1 ] || [ $device = iPad4,2 ] || [ $device = iPad4,3 ] || [ $device = iPad4,4 ] || [ $device = iPad4,5 ] || [ $device = iPad4,6 ] || [ $device = iPad4,7 ] || [ $device = iPad4,8 ] || [ $device = iPad4,9 ];
 then
     ./irecovery -f ibec."$device".img4
 fi
