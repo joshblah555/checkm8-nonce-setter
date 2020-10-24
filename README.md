@@ -64,6 +64,8 @@ iPad 7th Gen (2019) (Thanks to @RazMashat on twitter for keys =) )
 
 iPod Touch 7th Gen (2019)
 
+Apple TV 4/HD (Thanks to myself * JTV * for keys)
+
 
 SUPPORT COMING FOR:
 
