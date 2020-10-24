@@ -85,7 +85,6 @@ if [ $? == 0 ]; then
    echo $device
 fi
 
-
 files/igetnonce | grep 'n53ap' &> /dev/null
 if [ $? == 0 ]; then
    echo "Supported Device"
@@ -186,8 +185,7 @@ else
 fi
 
 if [ $device == AppleTV5,3 ]; then
-    echo "Device is an Apple TV 4, using another signature check remover"
-    git clone https://github.com/joshblah555/ipwndfu_public.git <-- link is WIP
+    git clone https://github.com/joshblah555/ipwndfu_public.git
     cd ipwndfu_public
     
 echo "Starting ipwndfu"
@@ -195,6 +193,7 @@ echo "Starting ipwndfu"
 string=$(../files/lsusb | grep -c "checkm8")
 until [ $string = 1 ];
 do
+echo "Killing iTunes and its services"
     killall iTunes && killall iTunesHelper
     echo "Waiting 10 seconds to allow you to enter DFU mode"
     sleep 10
@@ -211,13 +210,20 @@ if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
     echo "Device is an iPhone X, using akayn's signature check remover"
     ./ipwndfu --patch
     sleep 1
+    
+elif [ $device == AppleTV5,3 ]; then
+    echo "Device is an Apple TV 4, using another signature check remover"
+    python rmsigchecks_t7000.py
+    sleep 1
+    
 else
-    echo "Device is NOT an iPhone X, using Linus's signature check remover"
+    echo "Device is NOT an iPhone X nor an Apple TV, using Linus's signature check remover"
     python rmsigchks.py
     sleep 1
-fi
+fi    
+
 cd ..
-echo "Device is now in PWNDFU mode with signature checks removed (Thanks to Linus Henze & akayn)"
+echo "Device is now in PWNDFU mode with signature checks removed (Thanks to Linus Henze, akayn & others)"
 
 echo "Entering PWNREC mode"
 cd files
