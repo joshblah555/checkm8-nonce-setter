@@ -78,6 +78,13 @@ fi
 
 echo "Checking device compatibility...."
 
+files/igetnonce | grep 'j105aap' &> /dev/null
+if [ $? == 0 ]; then
+   echo "Supported Device"
+   device="AppleTV6,2"
+   echo $device
+fi
+
 files/igetnonce | grep 'j42dap' &> /dev/null
 if [ $? == 0 ]; then
    echo "Supported Device"
@@ -183,6 +190,10 @@ if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
 elif [ $device == AppleTV5,3 ]; then
       git clone https://github.com/joshblah555/ipwndfu_public.git
       cd ipwndfu_public
+
+elif [ $device == AppleTV6,2 ]; then
+      git clone https://github.com/joshblah555/ipwndfu_public.git
+      cd ipwndfu_public
       
 else
     git clone https://github.com/MatthewPierson/ipwndfu_public.git
@@ -217,6 +228,11 @@ elif [ $device == AppleTV5,3 ]; then
     python rmsigchecks_t7000.py
     sleep 1
     
+elif [ $device == AppleTV6,2 ]; then
+    echo "Device is an Apple TV 4K, no signature check remover availiable yet..."
+    echo "Exiting"
+    exit 0
+    
 else
     echo "Device is NOT an iPhone X nor an Apple TV, using Linus's signature check remover"
     python rmsigchks.py
@@ -231,6 +247,11 @@ cd files
 
 if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
     ./irecovery -f junk.txt
+fi
+
+if [ $device == AppleTV6,2 ]; then
+    echo "Apple TV 4K not yet working..."
+    exit 0
 fi
 
 ./irecovery -f ibss."$device".img4
