@@ -229,12 +229,12 @@ elif [ $device == AppleTV5,3 ]; then
     sleep 1
     
 elif [ $device == AppleTV6,2 ]; then
-    echo "Device is an Apple TV 4K, no signature check remover availiable yet..."
-    echo "Exiting"
-    exit 0
+    echo "Device is an Apple TV 4K, using Linus's signature check remover"
+    python rmsigchks.py
+    sleep 1
     
 else
-    echo "Device is NOT an iPhone X nor an Apple TV, using Linus's signature check remover"
+    echo "Device is NOT an iPhone X, using Linus's signature check remover"
     python rmsigchks.py
     sleep 1
 fi    
@@ -250,13 +250,12 @@ if [ $device == iPhone10,3 ] || [ $device == iPhone10,6 ]; then
 fi
 
 if [ $device == AppleTV6,2 ]; then
-    echo "Apple TV 4K not yet working..."
-    exit 0
+    echo "Attempting to send iBEC/iBSS to Apple TV 4K. Brace yourselves..."
 fi
 
 ./irecovery -f ibss."$device".img4
 
-if [ $device = AppleTV5,3 ] || [ $device = iPhone6,1 ] || [ $device = iPhone6,2 ] || [ $device = iPad4,1 ] || [ $device = iPad4,2 ] || [ $device = iPad4,3 ] || [ $device = iPad4,4 ] || [ $device = iPad4,5 ] || [ $device = iPad4,6 ] || [ $device = iPad4,7 ] || [ $device = iPad4,8 ] || [ $device = iPad4,9 ];
+if [ $device = AppleTV6,2 ] || [ $device = AppleTV5,3 ] || [ $device = iPhone6,1 ] || [ $device = iPhone6,2 ] || [ $device = iPad4,1 ] || [ $device = iPad4,2 ] || [ $device = iPad4,3 ] || [ $device = iPad4,4 ] || [ $device = iPad4,5 ] || [ $device = iPad4,6 ] || [ $device = iPad4,7 ] || [ $device = iPad4,8 ] || [ $device = iPad4,9 ];
 then
     ./irecovery -f ibec."$device".img4
 fi
